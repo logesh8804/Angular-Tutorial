@@ -1,67 +1,93 @@
 const introductionToHtml = {
   id: 'html-introduction',
-  slug: 'introduction',
   title: 'Introduction to HTML',
   description:
-    'Understand what HTML is, why it is important, and how it forms the structure of every web page.',
+    'Learn what HTML is, how it structures web pages, and how browsers interpret HTML documents.',
   difficulty: 'Beginner',
   estimatedTime: 15,
 
   sections: [
     {
-      id: 'introduction',
       type: 'text',
       title: 'Introduction',
-      content: ` HTML is the standard markup language used to structure content on the web. It tells the browser what different pieces of content represent, such as headings, paragraphs, links, images, lists, forms, and other parts of a web page. HTML is not a programming language. It is a markup language that describes the structure and meaning of content. `,
+      content:
+        'HTML is the foundation of every web page. It provides the structure and meaning of content that browsers display to users.',
     },
 
     {
-      id: 'why-html',
       type: 'text',
       title: 'Why HTML Matters',
-      content: ` Every website starts with structure. HTML provides that structure before CSS is used to control presentation and JavaScript is used to add behavior. A strong understanding of HTML makes it easier to build accessible, maintainable, and well-structured web applications. `,
+      content:
+        'Before learning CSS, JavaScript, or a frontend framework such as Angular, you need to understand how web documents are structured. HTML gives browsers the information they need to understand headings, paragraphs, links, images, forms, and other content.',
     },
 
     {
-      id: 'prerequisites',
       type: 'list',
       title: 'Prerequisites',
       items: [
         'Basic familiarity with using a computer.',
-        'A modern web browser such as Chrome, Firefox, Edge, or Safari.',
         'A code editor such as Visual Studio Code.',
-        'No previous HTML experience is required.',
+        'A modern web browser.',
+        'Curiosity and willingness to experiment.',
       ],
     },
 
     {
-      id: 'what-is-html',
       type: 'text',
       title: 'What Is HTML?',
-      content: ` HTML stands for HyperText Markup Language. It uses elements to describe the structure and meaning of content. For example, a heading can be represented using a heading element, while a paragraph can be represented using a paragraph element. The browser reads these elements and uses them to construct the document displayed on the screen. `,
+      content:
+        'HTML stands for HyperText Markup Language. It is a markup language used to describe the structure and meaning of content on the web.',
     },
 
     {
-      id: 'basic-syntax',
-      type: 'code',
+      type: 'callout',
+      variant: 'note',
+      title: 'Remember',
+      content:
+        'HTML describes structure and meaning. CSS controls presentation, while JavaScript adds behavior and interactivity.',
+    },
+
+    {
+      type: 'text',
       title: 'Basic HTML Syntax',
-      language: 'html',
-      code: `<h1>Hello, world!</h1>`,
-      explanation:
-        'This example creates a level-one heading containing the text "Hello, world!".',
+      content:
+        'HTML uses elements to describe different parts of a document. Most elements are written using an opening tag, content, and a closing tag.',
     },
 
     {
-      id: 'first-example',
       type: 'code',
+      title: 'A Simple HTML Element',
+      language: 'html',
+      code: `<p>Hello, world!</p>`,
+      explanation:
+        'The <p> element represents a paragraph. The opening and closing tags tell the browser where the paragraph begins and ends.',
+    },
+
+    {
+      type: 'callout',
+      variant: 'tip',
+      title: 'Tip',
+      content:
+        'HTML is easier to learn when you focus on understanding the structure of a page instead of trying to memorize every element.',
+    },
+
+    {
+      type: 'text',
       title: 'Your First HTML Page',
+      content:
+        'A complete HTML document normally contains a document type declaration, an html element, a head section, and a body section.',
+    },
+
+    {
+      type: 'code',
+      title: 'Basic HTML Document',
       language: 'html',
       code: `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My First Web Page</title>
+    <title>My First Page</title>
   </head>
 
   <body>
@@ -70,69 +96,92 @@ const introductionToHtml = {
   </body>
 </html>`,
       explanation:
-        'This is a minimal HTML document containing a document type declaration, the html element, a head section, and visible content inside the body.',
+        'This is a minimal modern HTML document. The browser uses this structure to understand and render the page.',
     },
 
     {
-      id: 'browser-process',
-      type: 'steps',
+      type: 'text',
       title: 'How the Browser Uses HTML',
+      content:
+        'When you open an HTML document, the browser reads the markup, builds a representation of the document, and uses that structure to render the page.',
+    },
+
+    {
+      type: 'steps',
+      title: 'What Happens When You Open an HTML File',
       steps: [
-        'The browser receives the HTML document.',
-        'It reads the HTML elements and their relationships.',
-        'It builds an internal representation of the document.',
-        'The browser uses that structure to display the page.',
+        'The browser loads the HTML document.',
+        'The browser reads the HTML markup.',
+        'HTML elements are interpreted and organized into a document structure.',
+        'The browser renders the resulting page.',
       ],
     },
 
     {
-      id: 'common-mistakes',
-      type: 'list',
+      type: 'text',
       title: 'Common Mistakes',
-      items: [
-        'Forgetting to close elements that require closing tags.',
-        'Using HTML only for visual styling instead of meaningful structure.',
-        'Creating deeply nested markup without a clear reason.',
-        'Ignoring semantic HTML elements.',
-      ],
+      content:
+        'Beginners often make mistakes such as forgetting closing tags, incorrectly nesting elements, or using elements without understanding their purpose.',
     },
 
     {
-      id: 'best-practices',
+      type: 'callout',
+      variant: 'warning',
+      title: 'Common mistake',
+      content:
+        'Pay attention to element nesting and closing tags. Incorrect structure can produce unexpected results in the browser.',
+    },
+
+    {
       type: 'list',
-      title: 'Best Practices',
+      title: 'Common HTML Mistakes to Avoid',
       items: [
-        'Use meaningful and semantic HTML elements.',
-        'Keep the document structure organized and readable.',
-        'Indent nested elements consistently.',
-        'Use lowercase HTML element names.',
-        'Write HTML with accessibility in mind.',
+        'Forgetting required closing tags.',
+        'Incorrectly nesting elements.',
+        'Using HTML elements only for visual styling.',
+        'Ignoring semantic meaning.',
+        'Writing unnecessarily complicated markup.',
       ],
     },
 
     {
-      id: 'practice',
+      type: 'text',
+      title: 'Best Practices',
+      content:
+        'Good HTML should be readable, meaningful, accessible, and logically structured. Prefer semantic elements when they accurately describe the content.',
+    },
+
+    {
+      type: 'callout',
+      variant: 'success',
+      title: 'Best practice',
+      content:
+        'Prefer semantic HTML elements that describe the purpose of your content instead of using generic elements everywhere.',
+    },
+
+    {
       type: 'practice',
       title: 'Practice',
       description:
-        'Create a simple HTML page containing a heading and a paragraph.',
+        'Create a simple HTML page containing a heading, a paragraph, and a link.',
       tasks: [
-        'Create a valid HTML document.',
-        'Add a level-one heading containing your name.',
+        'Create an index.html file.',
+        'Add a valid HTML document structure.',
+        'Add an h1 heading.',
         'Add a paragraph describing yourself.',
+        'Add a link to a website you frequently use.',
       ],
     },
 
     {
-      id: 'summary',
       type: 'summary',
       title: 'Summary',
       items: [
-        'HTML is a markup language used to structure web content.',
-        'HTML provides the foundation of a web page.',
-        'HTML uses elements to describe content and structure.',
-        'Browsers interpret HTML and use it to construct the displayed document.',
-        'Semantic and well-structured HTML improves maintainability and accessibility.',
+        'HTML is the markup language used to structure web content.',
+        'HTML uses elements and tags to describe content.',
+        'A basic HTML document contains html, head, and body sections.',
+        'Browsers interpret HTML and use it to render web pages.',
+        'Semantic and well-structured HTML provides a strong foundation for CSS and JavaScript.',
       ],
     },
   ],

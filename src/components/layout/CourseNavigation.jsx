@@ -1,6 +1,8 @@
-import { Braces, ChevronDown, ChevronRight, Code2, FileCode2, Globe, Layers3, Lock, } from 'lucide-react'
+import { Braces, CheckCircle2, ChevronDown, ChevronRight, Code2, FileCode2, Globe, Layers3, Lock, } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import courses from '../../data/courses'
+import { isLessonCompleted } from '../../utils/progressUtils'
 
 const iconMap = {
   globe: Globe,
@@ -12,6 +14,26 @@ const iconMap = {
 
 function CourseNavigation({ onNavigate }) {
   const { courseSlug, moduleSlug, topicSlug } = useParams()
+
+  const [progressVersion, setProgressVersion] = useState(0)
+
+  useEffect(() => {
+    const handleProgressChange = () => {
+      setProgressVersion((version) => version + 1)
+    }
+
+    window.addEventListener(
+      'tutorialhub-progress-changed',
+      handleProgressChange,
+    )
+
+    return () => {
+      window.removeEventListener(
+        'tutorialhub-progress-changed',
+        handleProgressChange,
+      )
+    }
+  }, [])
 
   const activeCourse = courses.find(
     (course) => course.slug === courseSlug,
@@ -97,6 +119,9 @@ function CourseNavigation({ onNavigate }) {
                             module.slug === moduleSlug &&
                             topic.slug === topicSlug
 
+                          const completed =
+                            isLessonCompleted(topic.id)
+
                           return (
                             <NavLink
                               key={topic.id}
@@ -109,9 +134,18 @@ function CourseNavigation({ onNavigate }) {
                                   : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900',
                               ].join(' ')}
                             >
-                              <span className="block truncate">
-                                {topic.title}
-                              </span>
+                              <div className="flex min-w-0 items-center gap-2">
+                                {completed && (
+                                  <CheckCircle2
+                                    size={14}
+                                    className="shrink-0 text-emerald-500"
+                                  />
+                                )}
+
+                                <span className="truncate">
+                                  {topic.title}
+                                </span>
+                              </div>
 
                               <span
                                 className={

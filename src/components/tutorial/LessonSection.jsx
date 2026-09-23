@@ -4,6 +4,7 @@ import PracticeSection from './PracticeSection'
 import StepsSection from './StepsSection'
 import SummarySection from './SummarySection'
 import TextSection from './TextSection'
+import CalloutSection from './CalloutSection'
 
 function LessonSection({ section }) {
   return (
@@ -15,6 +16,14 @@ function LessonSection({ section }) {
       <div className="mt-4">
         {section.type === 'text' && (
           <TextSection content={section.content} />
+        )}
+
+        {section.type === 'callout' && (
+          <CalloutSection
+            variant={section.variant}
+            title={section.title}
+            content={section.content}
+          />
         )}
 
         {section.type === 'list' && (
