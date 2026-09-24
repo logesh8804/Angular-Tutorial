@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import SearchButton from '../search/SearchButton'
 import SearchDialog from '../search/SearchDialog'
 
-function Header({ onMenuClick }) {
+function Header({ onMenuClick, theme, onThemeChange, }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -68,7 +68,12 @@ function Header({ onMenuClick }) {
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
-              aria-label="Toggle theme"
+              onClick={() => onThemeChange(theme === 'dark' ? 'light' : 'dark') }
+              aria-label={
+                theme === 'dark'
+                  ? 'Switch to light theme'
+                  : 'Switch to dark theme'
+              }
             >
               <Sun size={19} />
             </button>

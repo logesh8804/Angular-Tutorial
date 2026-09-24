@@ -1,3 +1,6 @@
+import lessonRegistry from '../content/lessonRegistry'
+import { getAllTopics } from './courseUtils'
+
 const STORAGE_KEY = 'tutorialhub-completed-lessons'
 
 function getCompletedLessons() {
@@ -54,6 +57,39 @@ export function getCompletedLessonCount() {
   return getCompletedLessons().length
 }
 
+export function getLearningProgress(courses) {
+  const availableLessons = courses.flatMap((course) =>
+    getAllTopics(course).filter(
+      (topic) =>
+        lessonRegistry[course.slug]?.[topic.id],
+    ),
+  )
+
+  const completedLessons = getCompletedLessons()
+
+  const completedCount = availableLessons.filter(
+    (lesson) =>
+      completedLessons.includes(lesson.id),
+  ).length
+
+  const totalCount = availableLessons.length
+
+  const percentage =
+    totalCount === 0
+      ? 0
+      : Math.round(
+          (completedCount / totalCount) * 100,
+        )
+
+  return {
+    completedCount,
+    totalCount,
+    percentage,
+  }
+}
+
 export function notifyProgressChanged() {
-  window.dispatchEvent(new Event('tutorialhub-progress-changed'))
+  window.dispatchEvent(
+    new Event('tutorialhub-progress-changed'),
+  )
 }

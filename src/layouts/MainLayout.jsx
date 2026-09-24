@@ -3,9 +3,16 @@ import { useEffect, useState } from 'react'
 import Header from '../components/layout/Header'
 import CourseNavigation from '../components/layout/CourseNavigation'
 import Sidebar from '../components/layout/Sidebar'
+import { getLearningProgress } from '../utils/progressUtils'
+import courses from '../data/courses'
 
-function MainLayout({ children }) {
+function MainLayout({ children, theme, onThemeChange, }) {  
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const [progress, setProgress] = useState(() =>
+    getLearningProgress(courses),
+  )
 
   useEffect(() => {
     if (!isMobileMenuOpen) {
@@ -20,13 +27,31 @@ function MainLayout({ children }) {
     }
   }, [isMobileMenuOpen])
 
+  useEffect(() => {
+    const handleProgressChange = () => {
+      setProgress(getLearningProgress(courses))
+    }
+
+    window.addEventListener(
+      'tutorialhub-progress-changed',
+      handleProgressChange,
+    )
+
+    return () => {
+      window.removeEventListener(
+        'tutorialhub-progress-changed',
+        handleProgressChange,
+      )
+    }
+  }, [])
+
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false)
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <Header onMenuClick={() => setIsMobileMenuOpen(true)} />
+    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100">
+      <Header onMenuClick={() => setIsMobileMenuOpen(true)} theme={theme} onThemeChange={onThemeChange} />
 
       <div className="mx-auto flex max-w-[1600px]">
         <Sidebar />
@@ -71,20 +96,25 @@ function MainLayout({ children }) {
               <CourseNavigation onNavigate={closeMobileMenu} />
             </div>
 
-            <div className="shrink-0 border-t border-slate-100 p-4">
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                <p className="text-sm font-semibold text-slate-800">
-                  Your learning journey
-                </p>
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-sm font-semibold text-slate-800">
+                Your learning journey
+              </p>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500">
-                  Complete lessons and build your skills step by step.
-                </p>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                Complete lessons and build your skills step by step.
+              </p>
 
-                <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-200">
-                  <div className="h-full w-1/5 rounded-full bg-slate-800" />
-                </div>
+              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-slate-200">
+                <div
+                  className="h-full rounded-full bg-slate-800 transition-all duration-300"
+                  style={{ width: `${progress.percentage}%` }}
+                />
               </div>
+
+              <p className="mt-2 text-xs text-slate-500">
+                {progress.completedCount} of {progress.totalCount} lessons completed
+              </p>
             </div>
           </aside>
         </div>
